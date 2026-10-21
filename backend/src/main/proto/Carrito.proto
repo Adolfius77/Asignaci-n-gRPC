@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "org.example.grpc";
+
+service CarritoService {
+  rpc ObtenerProductos(Vacio) returns (ListaProductos) {};
+
+  rpc ProcesarCarrito(CarritoRequest) returns (CarritoResponse) {};
+}
+
+message Vacio {}
+
+message Producto {
+  string id = 1;
+  string nombre = 2;
+  double precio = 3;
+  string icono = 4;
+}
+
+message ListaProductos {
+  repeated Producto productos = 1;
+}
+
+message ItemCarrito {
+  string producto_id = 1;
+  int32 cantidad = 2;
+  double precio = 3;
+}
+
+message CarritoRequest {
+  string cliente = 1;
+  repeated ItemCarrito items = 2;
+}
+
+message CarritoResponse {
+  bool exito = 1;
+  int32 folio = 2;
+  string mensaje = 3;
+  double total = 4;
+  repeated string detalles = 5;
+}
